@@ -7,6 +7,7 @@ from db.hash import Hash
 def create_user(db: Session, request: UserBase):
     user = User(
         username=request.username,
+        name=request.name,
         password=Hash.bcrypt(request.password),
         email=request.email
     )
