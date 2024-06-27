@@ -1,8 +1,6 @@
 from sqlalchemy.orm import relationship
-
-from db.database import Base
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean, Table
-
+from db.database import Base
 
 class User(Base):
     __tablename__ = 'users'
@@ -15,7 +13,7 @@ class User(Base):
 
 class Project(Base):
     __tablename__ = 'projects'
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, unique=True,  primary_key=True, index=True)
     name = Column(String)
     description = Column(String)
     is_concluded = Column(Boolean)
@@ -31,8 +29,7 @@ class Task(Base):
     project_id = Column(Integer, ForeignKey('projects.id'))
     project = relationship('Project', back_populates='tasks')
     users = relationship('User', secondary='user_tasks')
-
-user_tasks = Table('user_tasks', Base.metadata,
+    user_tasks = Table('user_tasks', Base.metadata,
     Column('user_id', Integer, ForeignKey('users.id'), primary_key=True),
     Column('task_id', Integer, ForeignKey('tasks.id'), primary_key=True)
- )
+    )
