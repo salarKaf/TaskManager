@@ -33,3 +33,12 @@ class ProjectDisplay(BaseModel) :
     class Config:
         from_attributes = True
 
+
+
+class UserAuth (BaseModel):
+    user_id: int
+    username: str
+    email: str
+    name: str
+
+
