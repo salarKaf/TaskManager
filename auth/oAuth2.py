@@ -11,9 +11,6 @@ from jose.exceptions import JWTError
 
 
 
-
-
-
 oauth2_scheme=OAuth2PasswordBearer(tokenUrl="token")
 
 SECRET_KEY = '85c23e676e1e67a7a51241e3dd9eee8d98d095fbb2b4e8cc22f12cce08c4fcea'
@@ -41,8 +38,6 @@ def get_current_user(token: str = Depends(oauth2_scheme) , db:Session=Depends(ge
             raise error_credential
     except JWTError:
         raise error_credential
-
-
     user= get_user_by_username(username , db)
     return user
 

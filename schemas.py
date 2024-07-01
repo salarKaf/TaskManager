@@ -13,32 +13,58 @@ class Userdisplay(BaseModel):
     class Config:
         from_attributes = True
 
-class ProjectBase(BaseModel):
-    name: str
-    description: str
-    creator_id: int
-    is_concluded: bool
-
 class User(BaseModel):
     username: str
     class Config:
         from_attributes = True
 
 class ProjectDisplay(BaseModel) :
-    name: str
+    title: str
     description: str
     is_concluded: bool
     timestamp: datetime
-    user: User
+    owner: User
     class Config:
         from_attributes = True
-
-
 
 class UserAuth (BaseModel):
     user_id: int
     username: str
     email: str
     name: str
+
+class ProjectBase(BaseModel):
+    title: str
+    description: str
+    # creator_id: int
+    is_concluded: bool
+
+
+
+class TaskBase(BaseModel):
+    title : str
+    description : str
+    user_id: int
+    project_id: int
+
+
+class TaskDisplay(BaseModel):
+    title: str
+    description: str
+    is_done: bool
+    isAccepted: bool
+    timestamp: datetime
+    user: User
+    project: ProjectDisplay
+    class Config:
+        from_attributes = True
+
+
+
+
+
+
+
+
 
 

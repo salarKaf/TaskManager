@@ -1,8 +1,6 @@
 from typing import List
-
-from fastapi import APIRouter , Depends
+from fastapi import APIRouter,Depends
 from sqlalchemy.orm import Session
-
 from auth import oAuth2
 from schemas import ProjectBase, ProjectDisplay, UserAuth
 from db import db_project
@@ -14,10 +12,10 @@ router=APIRouter(prefix="/Project", tags=['projects'])
 @router.post("", response_model=ProjectDisplay)
 def create_project( request:ProjectBase ,db:Session = Depends(get_db) ,
                     current_user:UserAuth=Depends(oAuth2.get_current_user)):
-    return db_project.creat_project(db , request)
+    return db_project.creat_project(db , request , current_user)
 
 
 @router.get("/", response_model=List[ProjectDisplay])
-def get_project(db:Session = Depends(get_db)):
-    return db_project.get_all_Projects(db)
+def get_project(db:Session = Depends(get_db) , current_user:UserAuth=Depends(oAuth2.get_current_user)):
+    return db_project.get_all_Projects(db , current_user)
 
