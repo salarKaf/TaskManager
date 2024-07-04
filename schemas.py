@@ -37,9 +37,10 @@ class ProjectBase(BaseModel):
     title: str
     description: str
     # creator_id: int
-    is_concluded: bool
+    # is_concluded: bool
 
-
+class Project(BaseModel):
+    title: str
 
 class TaskBase(BaseModel):
     title : str
@@ -66,5 +67,7 @@ class TaskDisplay(BaseModel):
 
 
 
-
+class TaskBaseAccept(BaseModel):
+    task_id : int
+    project_id: int
 

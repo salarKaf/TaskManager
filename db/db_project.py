@@ -10,7 +10,7 @@ def creat_project(db:Session ,request:ProjectBase ,current_user:UserAuth=Depends
     new_project = Project(
         title=request.title,
         description=request.description,
-        is_concluded=request.is_concluded,
+        is_concluded=False,
         timestamp=datetime.datetime.now(),
         owner_id=owner.id
     )

@@ -1,10 +1,10 @@
-from db.models import ProjectMember
-from schemas import TaskBase ,UserAuth
+from db.models import ProjectMember , Project
+from schemas import TaskBase ,UserAuth , TaskBaseAccept
 from sqlalchemy.orm import Session
 import datetime
 from db.models import Task , User
 from fastapi.exceptions import HTTPException
-from fastapi import Depends
+from fastapi import Depends , status
 from auth import oAuth2
 def create_task_and_assign_user(db :Session , request:TaskBase , current_user:UserAuth=Depends(oAuth2.get_current_user)):
     owner = db.query(User).filter(User.username == current_user.username).first()
@@ -41,3 +41,43 @@ def create_task_and_assign_user(db :Session , request:TaskBase , current_user:Us
         raise HTTPException(status_code=404, detail="User not found")
 
 
+
+def get_requests_Task(db:Session , current_user:UserAuth=Depends(oAuth2.get_current_user)):
+    user = db.query(User).filter(User.username == current_user.username).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
+    return db.query(Task).filter(Task.user_id==user.id , Task.isAccepted==False).all()
+
+
+def get_Tasks(db:Session , current_user:UserAuth=Depends(oAuth2.get_current_user)):
+    user = db.query(User).filter(User.username == current_user.username).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
+    return db.query(Task).filter(Task.user_id==user.id , Task.isAccepted==True).all()
+
+def get_completed_Task(db:Session , current_user:UserAuth=Depends(oAuth2.get_current_user)):
+    user = db.query(User).filter(User.username == current_user.username).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
+    return db.query(Task).filter(Task.user_id==user.id , Task.is_done==True).all()
+
+
+
+def Accept_task(db:Session , request:TaskBaseAccept ,current_user:UserAuth=Depends(oAuth2.get_current_user)):
+    user = db.query(User).filter(User.username == current_user.username).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
+    else:
+        # project=db.query(Project).filter(Project.title==request.project_name.title).first()
+        # owner=db.query(User).filter(User.username == request.owner_username.username).first()
+        task = db.query(Task).filter(Task.user_id == user.id, Task.project_id==request.project_id , Task.id==request.task_id).first()
+        if not task:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Task not found')
+        else:
+            if (task.isAccepted == False):
+                task.isAccepted = True
+                db.commit()
+                db.refresh(task)
+                return task
+            else:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Task is accepted before')
