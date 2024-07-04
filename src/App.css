@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+*
+{
+  font-family: 'Roboto', sans-serif;
+}
+
+body
+{
+  background-color: #f2f5f6;
+}
+
+header
+{
+  padding: 20px;
+  text-align: center;
+  background-color: #21705d;
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+#task-container
+{
+  border-radius: 5px;
+  width: 500px;
+  margin: auto;
+  margin-top: 50px;
+  background-color: white;
+  overflow: hidden;
+}
+
+#search-box, #add-task-box
+{
+  padding: 11px;
+  font-size: 15px;
+  background: #dddce1;
+  border-radius: 5px;
+  border: none;
+  display: block;
+  width: 95%;
+  margin: auto;
+  margin-top: 20px;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+#add-task-box
+{
+  margin-bottom: 10px;
+}
+
+#search-box:focus, #add-task-box:focus
+{
+  outline: none;
+}
+
+#task-list
+{
+  list-style-type: none;
+  padding-left: 0;
+  max-height: 290px;
+  overflow-y: auto;
+}
+
+#task-list > li
+{
+  padding: 9px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+#task-list > li:hover
+{
+  background-color: #dddce1;
+  transition: 0.4s;
+}
+
+.task-btn
+{
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: -5px 0px;
+}
+
+.task-btn:hover
+{
+  transition: 0.4s;
+  color: white;
+}
+
+.mark-comp-btn:hover
+{
+  background-color: #21705d !important;
+}
+
+.delete-btn:hover
+{
+  background-color: red;
+}
