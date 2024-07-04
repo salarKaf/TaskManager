@@ -1,8 +1,8 @@
 import datetime
-from db.models import Project , ProjectMember, User
-from schemas import ProjectBase , UserAuth
+from db.models import Project , ProjectMember, User , Task
+from schemas import ProjectBase , UserAuth , ProjectBaseTask
 from sqlalchemy.orm import Session
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 from auth import oAuth2
 
 def creat_project(db:Session ,request:ProjectBase ,current_user:UserAuth=Depends(oAuth2.get_current_user) ):
@@ -32,6 +32,16 @@ def get_all_Projects(db: Session , current_user:UserAuth=Depends(oAuth2.get_curr
     id_projects=db.query(ProjectMember).filter(ProjectMember.user_id==user.id).all()
     projects = db.query(Project).filter(Project.id.in_([proj.project_id for proj in id_projects])).all()
     return projects
+
+
+def get_all_Task_In_Project(db: Session , requset: ProjectBaseTask , current_user:UserAuth=Depends(oAuth2.get_current_user) ):
+    user = db.query(User).filter(User.username == current_user.username).first()
+    pro_mem=db.query(ProjectMember).filter(ProjectMember.project_id==requset.Project_id , ProjectMember.user_id==user.id).first()
+    if pro_mem:
+        return db.query(Task).filter(Task.project_id == pro_mem.project_id , Task.isAccepted==True).all()
+
+    else:
+        raise HTTPException(status_code=404, detail="Not Found")
 
 
 

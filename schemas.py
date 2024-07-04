@@ -36,8 +36,6 @@ class UserAuth (BaseModel):
 class ProjectBase(BaseModel):
     title: str
     description: str
-    # creator_id: int
-    # is_concluded: bool
 
 class Project(BaseModel):
     title: str
@@ -61,13 +59,24 @@ class TaskDisplay(BaseModel):
         from_attributes = True
 
 
-
-
-
-
-
-
 class TaskBaseAccept(BaseModel):
     task_id : int
     project_id: int
+
+
+class AccountRecoveryRequest(BaseModel):
+    email: str
+
+
+class sent_info_by_email(BaseModel):
+    username: str
+    password: str
+    name: str
+
+
+
+class ProjectBaseTask(BaseModel):
+    Project_id:int
+
+
 
