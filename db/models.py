@@ -6,7 +6,7 @@ class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
-    username = Column(String)
+    username = Column(String ,primary_key=True)
     email = Column(String)
     password = Column(String)
     projects = relationship("Project", back_populates="owner")
@@ -44,6 +44,18 @@ class ProjectMember(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     project = relationship("Project", back_populates="members")
     user = relationship("User")
+
+
+class Admin(Base):
+    __tablename__ = 'admin'
+    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    name = Column(String)
+    username = Column(String)
+    email = Column(String)
+    password = Column(String)
+    phoneNumber=Column(String)
+
+
 
 
 

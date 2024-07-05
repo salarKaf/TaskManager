@@ -73,10 +73,29 @@ class sent_info_by_email(BaseModel):
     password: str
     name: str
 
-
-
 class ProjectBaseTask(BaseModel):
     Project_id:int
+
+
+class AdminBase(BaseModel):
+    username: str
+    password: str
+    email: str
+    name: str
+    phoneNumber:str
+
+
+class AdminBaseLogin():
+    username: str
+    email:str
+    phoneNumber:str
+
+
+
+class AdminDisplay(BaseModel):
+    username: str
+    email: str
+    name: str
 
 
 

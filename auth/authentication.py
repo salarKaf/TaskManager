@@ -11,7 +11,7 @@ from fastapi.exceptions import HTTPException
 router = APIRouter(tags=['authentication'])
 
 @router.post('/token')
-def get_token(request: OAuth2PasswordRequestForm = Depends() ,db:Session=Depends(get_db)):
+def get_token(request: OAuth2PasswordRequestForm = Depends() , db:Session=Depends(get_db)):
     user=db.query(models.User).filter(models.User.username==request.username).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='invalid credential')
@@ -29,6 +29,23 @@ def get_token(request: OAuth2PasswordRequestForm = Depends() ,db:Session=Depends
     }
 
 
+# @router.post('/token')
+# def get_token_For_Admin(request: OAuth2PasswordRequestForm = Depends() ,db:Session=Depends(get_db)):
+#     admin=db.query(models.Admin).filter(models.Admin.username==request.username , models.Admin.name==request.name , models.Admin.email==request.email , models.Admin.phoneNumber==request.).first()
+#     if not admin:
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='invalid credential')
+#
+#     if not Hash.verify(admin.password , request.password):
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='invalid password')
+#
+#
+#     access_token=oAuth2.create_access_token(data={'sub': request.username})
+#     return {
+#         'access_token': access_token,
+#         'token_type':'bearer',
+#         'userID': admin.id,
+#         'username': admin.username,
+#     }
 
 
 

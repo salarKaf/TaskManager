@@ -41,6 +41,21 @@ def get_current_user(token: str = Depends(oauth2_scheme) , db:Session=Depends(ge
     user= get_user_by_username(username , db)
     return user
 
+# def get_current_admin(token: str = Depends(oauth2_scheme) , db:Session=Depends(get_db)):
+#     error_credential = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+#                                           detail='Invalidate credentials',
+#                                           headers={'WWW-authenticate': 'bearer'})
+#     try:
+#         _dict = jwt.decode(token,SECRET_KEY,algorithms=ALGORITHM)
+#         username=_dict.get('sub')
+#         if not username:
+#             raise error_credential
+#     except JWTError:
+#         raise error_credential
+#     user= get_token_For_Admin(username , db)
+#     return user
+
+
 
 
 
