@@ -45,3 +45,13 @@ def get_all_Task_In_Project(db: Session , requset: ProjectBaseTask , current_use
 
 
 
+def get_all_Member_In_Project(db: Session , project_id:int , current_user:UserAuth=Depends(oAuth2.get_current_user)):
+    pro_mem=db.query(ProjectMember).filter(ProjectMember.project_id==project_id , ProjectMember.user_id==current_user).first()
+    if pro_mem:
+        return db.query(ProjectMember).filter(ProjectMember.project_id == project_id).all()
+
+    else:
+        raise HTTPException(status_code=404, detail="Not Found")
+
+
+

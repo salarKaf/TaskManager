@@ -97,5 +97,20 @@ class AdminDisplay(BaseModel):
     email: str
     name: str
 
+class NoticeBase(BaseModel):
+    text: str
 
 
+class NoticeCreate(NoticeBase):
+    team: User
+    task: int
+    
+
+class Notice(NoticeBase):
+    id: int 
+    task: int
+    isRead:bool 
+    team:User
+
+    class Config:
+        orm_mode = True

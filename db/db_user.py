@@ -36,7 +36,11 @@ def recover_account(db:Session , request: AccountRecoveryRequest):
 
 
 
-
+def get_user_by_Id(id:int, db: Session):
+    user=db.query(User).filter(User.id==id).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
+    return user
 
 
 
