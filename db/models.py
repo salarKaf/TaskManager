@@ -47,20 +47,20 @@ class ProjectMember(Base):
 
 
 
-class Notice(Base):
-    __tablename__='notice'
-    id=Column(Integer , primary_key=True , autoincrement=True , index=True)
-    text=Column(String)
-    isRead=Column(Boolean)
-    task_id = Column(Integer, ForeignKey('tasks.id'))
-    task = relationship("Task")
-
-
-
-class UserNotice(Base):
-    __tablename__='userNotice'
-    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
-    notice_id = Column(Integer, ForeignKey('notice.id'))
-    user_id = Column(Integer, ForeignKey('users.id'))
-    notice = relationship("Notice", back_populates="members")
-    user = relationship("User")
+# class Notice(Base):
+#     __tablename__='notice'
+#     id=Column(Integer , primary_key=True , autoincrement=True , index=True)
+#     text=Column(String)
+#     isRead=Column(Boolean)
+#     task_id = Column(Integer, ForeignKey('tasks.id'))
+#     task = relationship("Task")
+#
+#
+#
+# class UserNotice(Base):
+#     __tablename__='userNotice'
+#     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+#     notice_id = Column(Integer, ForeignKey('notice.id'))
+#     user_id = Column(Integer, ForeignKey('users.id'))
+#     notice = relationship("Notice", back_populates="members")
+#     user = relationship("User")

@@ -1,12 +1,14 @@
 from pydantic import BaseModel
 from datetime import datetime
 class UserBase(BaseModel):
+    id:int
     username: str
     password: str
     email: str
     name: str
 
 class Userdisplay(BaseModel):
+    id:int
     username: str
     email: str
     name: str
@@ -19,6 +21,7 @@ class User(BaseModel):
         from_attributes = True
 
 class ProjectDisplay(BaseModel) :
+    id:int
     title: str
     description: str
     is_concluded: bool
@@ -28,12 +31,13 @@ class ProjectDisplay(BaseModel) :
         from_attributes = True
 
 class UserAuth (BaseModel):
-    user_id: int
+    id: int
     username: str
     email: str
     name: str
 
 class ProjectBase(BaseModel):
+    id:int
     title: str
     description: str
 
@@ -41,6 +45,7 @@ class Project(BaseModel):
     title: str
 
 class TaskBase(BaseModel):
+    id:int
     title : str
     description : str
     user_id: int
@@ -48,6 +53,7 @@ class TaskBase(BaseModel):
 
 
 class TaskDisplay(BaseModel):
+    id:int
     title: str
     description: str
     is_done: bool
@@ -77,18 +83,18 @@ class ProjectBaseTask(BaseModel):
     Project_id:int
 
 
-class AdminBase(BaseModel):
-    username: str
-    password: str
-    email: str
-    name: str
-    phoneNumber:str
+# class AdminBase(BaseModel):
+#     username: str
+#     password: str
+#     email: str
+#     name: str
+#     phoneNumber:str
 
 
-class AdminBaseLogin():
-    username: str
-    email:str
-    phoneNumber:str
+# class AdminBaseLogin():
+#     username: str
+#     email:str
+#     phoneNumber:str
 
 
 
@@ -97,20 +103,25 @@ class AdminDisplay(BaseModel):
     email: str
     name: str
 
-class NoticeBase(BaseModel):
-    text: str
 
+class TaskBaseDone(BaseModel):
+    task_id : int
+    project_id: int
 
-class NoticeCreate(NoticeBase):
-    team: User
-    task: int
-    
+# class NoticeBase(BaseModel):
+#     text: str
+#
+#
+# class NoticeCreate(NoticeBase):
+#     team: User
+#     task: int
+#
 
-class Notice(NoticeBase):
-    id: int 
-    task: int
-    isRead:bool 
-    team:User
-
-    class Config:
-        orm_mode = True
+# class Notice(NoticeBase):
+#     id: int
+#     task: int
+#     isRead:bool
+#     team:User
+#
+#     class Config:
+#         orm_mode = True

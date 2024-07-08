@@ -81,3 +81,23 @@ def Accept_task(db:Session , request:TaskBaseAccept ,current_user:UserAuth=Depen
                 return task
             else:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Task is accepted before')
+
+
+def Done_task(db:Session , request:TaskBaseAccept ,current_user:UserAuth=Depends(oAuth2.get_current_user)):
+    user = db.query(User).filter(User.username == current_user.username).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
+    else:
+        # project=db.query(Project).filter(Project.title==request.project_name.title).first()
+        # owner=db.query(User).filter(User.username == request.owner_username.username).first()
+        task = db.query(Task).filter(Task.user_id == user.id, Task.project_id==request.project_id , Task.id==request.task_id).first()
+        if not task:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Task not found')
+        else:
+            if (task.isAccepted == True):
+                task.is_done=True
+                db.commit()
+                db.refresh(task)
+                return task
+            else:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Task is not accepted')

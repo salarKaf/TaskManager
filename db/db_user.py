@@ -1,4 +1,3 @@
-
 from db.models import User
 from schemas import UserBase, AccountRecoveryRequest
 from sqlalchemy.orm import Session
@@ -41,6 +40,8 @@ def get_user_by_Id(id:int, db: Session):
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
     return user
+
+
 
 
 
