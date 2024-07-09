@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
 class UserBase(BaseModel):
-    id:int
     username: str
     password: str
     email: str
@@ -37,7 +36,7 @@ class UserAuth (BaseModel):
     name: str
 
 class ProjectBase(BaseModel):
-    id:int
+    # id:int
     title: str
     description: str
 
@@ -45,7 +44,6 @@ class Project(BaseModel):
     title: str
 
 class TaskBase(BaseModel):
-    id:int
     title : str
     description : str
     user_id: int

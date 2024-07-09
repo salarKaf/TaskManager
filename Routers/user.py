@@ -8,7 +8,7 @@ from auth import oAuth2
 
 router=APIRouter(prefix="/users", tags=['users'])
 
-@router.post("", response_model=Userdisplay)
+@router.post("/CreateUser", response_model=Userdisplay)
 def create_user(request:UserBase ,db:Session = Depends(get_db)):
     return db_user.create_user(db , request)
 
